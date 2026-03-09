@@ -49,7 +49,7 @@ for (int i = 0; i < 10; i++)
     // Publish the message
     await channel.BasicPublishAsync(
         exchange: string.Empty,
-        routingKey: "messageAlt",
+        routingKey: "message",
         mandatory: true,
         basicProperties: new BasicProperties { Persistent = true },
         body: bodyAlt);
