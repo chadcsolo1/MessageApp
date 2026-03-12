@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="MessageConsumerTwo/MessageConsumerTwo.csproj" Id="fe1011a0-da3a-4d12-a439-f099f1289e4a" />
   <Project Path="MessageProducer/MessageProducer.csproj" />
   <Project Path="MessagingConsumer/MessagingConsumer.csproj" />
 </Solution>

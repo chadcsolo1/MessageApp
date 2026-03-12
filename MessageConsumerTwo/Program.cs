@@ -1,11 +1,10 @@
-﻿using RabbitMQ.Client;
+using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
 using System.Text.Json;
 
-//***Consumer-1***
-Console.WriteLine("Consumer 1");
-
+//***Consumer-2***
+Console.WriteLine("Consumer 2");
 
 //Create Connection factory
 var factory = new ConnectionFactory() { HostName = "localhost" };
@@ -22,10 +21,11 @@ await channel.ExchangeDeclareAsync(
     autoDelete: false,
     type: ExchangeType.Fanout);
 
+
 // Ensure the queue exists (create it if not already there)
 //Via the channel we can declare a queue, bind to a queue, unbind from a queue, work with exchanges, and acknowledge & consume messages.
 await channel.QueueDeclareAsync(
-    queue: "message-1",
+    queue: "message-2",
     durable: true, // save to disk so the queue isn’t lost on broker restart
     exclusive: false, // can be used by other connections
     autoDelete: false, // don’t delete when the last consumer disconnects
@@ -33,7 +33,7 @@ await channel.QueueDeclareAsync(
 
 
 //We need to bind the queue to the exchange so that messages published to the exchange will be routed to the queue.
-await channel.QueueBindAsync("message-1", "messages", string.Empty);
+await channel.QueueBindAsync("message-2", "messages", string.Empty);
 
 Console.WriteLine("Waiting for messages....");
 
@@ -52,6 +52,6 @@ consumer.ReceivedAsync += async (sender, EventArgs) =>
 };
 
 //Start consuming messages from the queue
-await channel.BasicConsumeAsync("message-1", autoAck: false, consumer);
+await channel.BasicConsumeAsync("message-2", autoAck: false, consumer);
 
 Console.ReadLine();
